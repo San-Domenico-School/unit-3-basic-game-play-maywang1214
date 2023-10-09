@@ -9,31 +9,43 @@ public class PlayerController : MonoBehaviour
     private float speed;
     private float centerToEdge;
     private float move;
+    private float maxSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
+        speed = 3.0f;
+        centerToEdge = 25.0f;
         //to be implemented
     }
 
-    // Update is called once per frame
+    // to call the PlayerMovement method each frame
     void Update()
     {
-        //to be implemented
+        PlayerMovement();
     }
 
+    // This method is responsible for moving the player left and right.
+    // It prevents the player from moving beyond the centerToEdge mark.
     private void PlayerMovement()
     {
-        //to be implemented
+        transform.Translate(Vector3.right * Time.deltaTime * speed * move);
+        if(transform.position.x > centerToEdge)
+        {
+            transform.position = new Vector3(centerToEdge, transform.position.y, transform.position.z);
+        }
     }
 
+    // OnMove is called when the Move action of the PlayerInputAction detects an input from the player.
+    // It sets the "move" field to either 1 or -1 based on the x-value of the input's Vector2.
     private void OnMove(InputValue input)
     {
-        //to be implemented
+        Vector2 inputVector = input.Get<Vector2>();
+        move = inputVector.x;
     }
 
     private void OnFire()
     {
-        //to be implemented
+        Instantiate(projectile, transform.position + Vector3.up, projectile.transform.rotation);
     }
 }
