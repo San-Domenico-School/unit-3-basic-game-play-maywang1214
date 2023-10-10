@@ -8,14 +8,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject projectile;
     private float speed;
     private float centerToEdge;
-    private float move;
+    private float moveX; // Horizontal movement
+    private float moveY; // Vertical movement
     private float maxSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         speed = 3.0f;
-        centerToEdge = 25.0f;
+        centerToEdge = 24.5f;
         //to be implemented
     }
 
@@ -29,8 +30,9 @@ public class PlayerController : MonoBehaviour
     // It prevents the player from moving beyond the centerToEdge mark.
     private void PlayerMovement()
     {
-        transform.Translate(Vector3.right * Time.deltaTime * speed * move);
-        if(transform.position.x > centerToEdge)
+        transform.Translate(Vector3.forward * Time.deltaTime * speed * moveY);
+        transform.Translate(Vector3.right * Time.deltaTime * speed * moveX);
+        if (transform.position.x > centerToEdge)
         {
             transform.position = new Vector3(centerToEdge, transform.position.y, transform.position.z);
         }
@@ -41,7 +43,9 @@ public class PlayerController : MonoBehaviour
     private void OnMove(InputValue input)
     {
         Vector2 inputVector = input.Get<Vector2>();
-        move = inputVector.x;
+        moveX = inputVector.x;
+        moveY = inputVector.y;
+
     }
 
     private void OnFire()
