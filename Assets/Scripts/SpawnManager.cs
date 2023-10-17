@@ -2,21 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*******************************************************
+ * Component of Spawn Manager, spawns animals
+ * into the scene but out of view.
+ * 
+ * Yuqin Wang
+ * October 13, 2023 version 1.0
+ * ****************************************************/
+
 public class SpawnManager : MonoBehaviour
 {
-    private float spawnRange;
-    private float startDelay = 2.0f;
-    private float spawnInterval = 1.5f;
-    [SerializeField] private GameObject[] animals;
+    private float spawnRange = 24.5f;                  // distance to edge from center of field
+    private float startDelay = 2.0f;                   // time before first spawn
+    private float spawnInterval = 1.5f;                // interval between spawns
+    [SerializeField] private GameObject[] animals;     // list of animals to spawn
 
-    // Start is called before the first frame update
+    // Calls the SpawnRandomAnimal method after a certain delay, then every interval
     void Start()
     {
-        //to be implemented
+        InvokeRepeating("SpawnRandomAnimal", startDelay, spawnInterval);
     }
 
-    private void SpawnRandomAnimal()
+    // Adds arandom animal at a random point between the spawn ranges
+        private void SpawnRandomAnimal()
     {
-        //to be implemented
+        int animalIndex = Random.Range(0, animals.Length);
+        Vector3 spawnPosition = new Vector3(Random.Range(-spawnRange, spawnRange), 0.0f, 25.0f);
+        GameObject animal = Instantiate(animals[animalIndex], spawnPosition, Quaternion.identity);
     }
 }
