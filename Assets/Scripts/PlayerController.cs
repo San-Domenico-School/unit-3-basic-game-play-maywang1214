@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 3.0f;
+        speed = 10.0f;
         centerToEdge = 24.5f;
         //to be implemented
     }
@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     // It prevents the player from moving beyond the centerToEdge mark.
     private void PlayerMovement()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * moveY);
         transform.Translate(Vector3.right * Time.deltaTime * speed * moveX);
         if (transform.position.x > centerToEdge)
         {
@@ -44,7 +43,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 inputVector = input.Get<Vector2>();
         moveX = inputVector.x;
-        moveY = inputVector.y;
 
     }
 
